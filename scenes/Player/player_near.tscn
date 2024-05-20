@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyixxjfkvg7sq"]
+
+[ext_resource type="Script" path="res://scenes/Player/player_near.gd" id="1_1a3yt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wcih"]
+size = Vector2(238, 220)
+
+[node name="PlayerNear" type="Area2D"]
+collision_layer = 16
+script = ExtResource("1_1a3yt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5wcih")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

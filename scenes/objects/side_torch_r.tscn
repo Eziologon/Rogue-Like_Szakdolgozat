@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://j41s4c5oc3wi"]
+
+[ext_resource type="PackedScene" uid="uid://wg0mb6f1xxy8" path="res://scenes/objects/basic_light.tscn" id="1_7s6cd"]
+[ext_resource type="Texture2D" uid="uid://bvvftu25kn0a5" path="res://graphics/DungeonTileset/items and trap_animation/torch/side_torch_1.png" id="2_54uro"]
+[ext_resource type="Texture2D" uid="uid://copyaljyasq4e" path="res://graphics/DungeonTileset/items and trap_animation/torch/side_torch_2.png" id="3_j12n2"]
+[ext_resource type="Texture2D" uid="uid://i3uy2ye8b0qn" path="res://graphics/DungeonTileset/items and trap_animation/torch/side_torch_3.png" id="4_1aunm"]
+[ext_resource type="Texture2D" uid="uid://di48u4drkuf7o" path="res://graphics/DungeonTileset/items and trap_animation/torch/side_torch_4.png" id="5_ynk2s"]
+[ext_resource type="Texture2D" uid="uid://dmeorv8o8byrh" path="res://graphics/LightFX/circle.png" id="6_uprnx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5kxi3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_54uro")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_j12n2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1aunm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ynk2s")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fld12"]
+radius = 1.0
+height = 12.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_civft"]
+polygon = PackedVector2Array(-2, 2, -2, 1, -1, 1, -1, 2, -1, 7, -2, 7)
+
+[node name="SideTorchR" instance=ExtResource("1_7s6cd")]
+collision_layer = 4
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(6, 0)
+sprite_frames = SubResource("SpriteFrames_5kxi3")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.0675332
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-1, 1)
+shape = SubResource("CapsuleShape2D_fld12")
+disabled = true
+
+[node name="PointLight2D" parent="." index="2"]
+color = Color(0.913725, 0.482353, 0, 1)
+shadow_enabled = true
+texture = ExtResource("6_uprnx")
+texture_scale = 0.25
+
+[node name="LightOccluder2D" parent="." index="3"]
+occluder = SubResource("OccluderPolygon2D_civft")

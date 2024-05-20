@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxo1hbrgji5f3"]
+
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_dt500"]
+[ext_resource type="FontFile" uid="uid://bxdpuk7bx0dnu" path="res://graphics/UI/PublicPixel-E447g.ttf" id="2_fwf8h"]
+[ext_resource type="PackedScene" uid="uid://dpjl3kcy56qam" path="res://scenes/main/background.tscn" id="2_pbfke"]
+
+[sub_resource type="Theme" id="Theme_uimvr"]
+default_font = ExtResource("2_fwf8h")
+default_font_size = 21
+
+[sub_resource type="Theme" id="Theme_ohq3y"]
+default_font = ExtResource("2_fwf8h")
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_dt500")
+
+[node name="NewGame" type="Button" parent="."]
+offset_left = 440.0
+offset_top = 336.0
+offset_right = 716.0
+offset_bottom = 399.0
+theme = SubResource("Theme_uimvr")
+text = "Play"
+
+[node name="Quit" type="Button" parent="."]
+offset_left = 456.0
+offset_top = 408.0
+offset_right = 704.0
+offset_bottom = 456.0
+theme = SubResource("Theme_ohq3y")
+text = "Quit"
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("2_pbfke")]
+
+[connection signal="pressed" from="NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

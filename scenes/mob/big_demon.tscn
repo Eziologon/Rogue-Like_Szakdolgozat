@@ -1,0 +1,186 @@
+[gd_scene load_steps=20 format=3 uid="uid://d1xoxr7jmq1sm"]
+
+[ext_resource type="Texture2D" uid="uid://de3ulw1e6iyjq" path="res://graphics/DungeonTileset1/frames/big_demon_idle_anim_f0.png" id="1_fpv7m"]
+[ext_resource type="Script" path="res://scenes/mob/big_demon.gd" id="1_jef0k"]
+[ext_resource type="Shader" path="res://scenes/mob/big_demon.gdshader" id="2_84aku"]
+[ext_resource type="Texture2D" uid="uid://datewdy0rbglg" path="res://graphics/DungeonTileset1/frames/big_demon_idle_anim_f1.png" id="4_7scyr"]
+[ext_resource type="Texture2D" uid="uid://cq3fjj6ee1hju" path="res://graphics/DungeonTileset1/frames/big_demon_idle_anim_f2.png" id="5_cogql"]
+[ext_resource type="Texture2D" uid="uid://c8lmpy5tt7p40" path="res://graphics/DungeonTileset1/frames/big_demon_idle_anim_f3.png" id="6_4617p"]
+[ext_resource type="Texture2D" uid="uid://h8lvuxcagqig" path="res://graphics/DungeonTileset1/frames/big_demon_run_anim_f0.png" id="7_ibfng"]
+[ext_resource type="Texture2D" uid="uid://kcrlmmkoe5va" path="res://graphics/DungeonTileset1/frames/big_demon_run_anim_f1.png" id="8_ewvf6"]
+[ext_resource type="Texture2D" uid="uid://6rubbttjfyb3" path="res://graphics/DungeonTileset1/frames/big_demon_run_anim_f2.png" id="9_1bc2c"]
+[ext_resource type="Texture2D" uid="uid://bl8jjaaruntwk" path="res://graphics/DungeonTileset1/frames/big_demon_run_anim_f3.png" id="10_084ox"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oglkx"]
+resource_local_to_scene = true
+shader = ExtResource("2_84aku")
+shader_parameter/color = Color(0.733333, 0.054902, 0.156863, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrkhy"]
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": ExtResource("1_fpv7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7scyr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cogql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_4617p")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": ExtResource("7_ibfng")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ewvf6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1bc2c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_084ox")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o6sgj"]
+radius = 7.5
+height = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fi4xn"]
+radius = 76.0066
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yphmx"]
+radius = 111.45
+
+[sub_resource type="Animation" id="Animation_0i4i2"]
+resource_name = "Idle"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_22h7x"]
+resource_name = "Run"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pe7gh"]
+_data = {
+"Idle": SubResource("Animation_0i4i2"),
+"Run": SubResource("Animation_22h7x")
+}
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_vifgy"]
+polygon = PackedVector2Array(-8, -3, -7, -8, -6, -11, 5, -11, 7, -8, 8, -2, 8, 14, 7, 17, 3, 18, -6, 18, -8, 15)
+
+[node name="BigDemon" type="CharacterBody2D" groups=["Entity", "Mobs"]]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_jef0k")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_oglkx")
+sprite_frames = SubResource("SpriteFrames_xrkhy")
+animation = &"Idle"
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 4)
+shape = SubResource("CapsuleShape2D_o6sgj")
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_fi4xn")
+
+[node name="AggroArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroArea"]
+shape = SubResource("CircleShape2D_yphmx")
+debug_color = Color(1, 0, 0.0980392, 0.419608)
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="ProjectileTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="HitTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pe7gh")
+}
+autoplay = "Idle"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_vifgy")
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="body_exited" from="AggroArea" to="." method="_on_aggro_area_body_exited"]
+[connection signal="timeout" from="Timers/ProjectileTimer" to="." method="_on_projectile_timer_timeout"]
+[connection signal="timeout" from="Timers/HitTimer" to="." method="_on_hit_timer_timeout"]

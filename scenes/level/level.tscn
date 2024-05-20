@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dycvjsyhm3obh"]
+
+[ext_resource type="Script" path="res://scenes/level/level.gd" id="1_wfqvi"]
+[ext_resource type="PackedScene" uid="uid://bc6ea2hh0k73v" path="res://scenes/userinterface/ui.tscn" id="3_etl3p"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_wfqvi")
+
+[node name="Ground" type="Node2D" parent="."]
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Entrance" type="Node2D" parent="."]
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="PositionHelpers" type="Node2D" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("3_etl3p")]

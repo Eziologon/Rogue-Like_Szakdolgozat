@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn0tbhjoikcxw"]
+
+[ext_resource type="Texture2D" uid="uid://d4cib2wasvle8" path="res://graphics/DungeonTileset1/frames/crate.png" id="1_itnod"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rgtk"]
+size = Vector2(14, 20)
+
+[node name="Crate" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 11
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_itnod")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_5rgtk")

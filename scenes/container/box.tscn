@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://obwlngvpff0t"]
+
+[ext_resource type="PackedScene" uid="uid://dlg1rudf7xjcr" path="res://scenes/container/item_container.tscn" id="1_h7swb"]
+[ext_resource type="Script" path="res://scenes/container/box.gd" id="2_6u4f2"]
+[ext_resource type="Texture2D" uid="uid://d4cib2wasvle8" path="res://graphics/DungeonTileset1/frames/crate.png" id="2_tp8b2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_783ve"]
+size = Vector2(12, 19)
+
+[node name="Box" instance=ExtResource("1_h7swb")]
+script = ExtResource("2_6u4f2")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_tp8b2")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_783ve")
+
+[node name="Marker2D" type="Marker2D" parent="SpawnPositions" index="0"]
+position = Vector2(-4, -7)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnPositions" index="1"]
+position = Vector2(4, -7)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnPositions" index="2"]
+position = Vector2(-4, 8)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnPositions" index="3"]
+position = Vector2(5, 8)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnPositions" index="4"]
+position = Vector2(3, 5)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnPositions" index="5"]
+position = Vector2(3, 5)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnPositions" index="6"]
+position = Vector2(-3, 6)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnPositions" index="7"]
+position = Vector2(-3, -3)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnPositions" index="8"]
+position = Vector2(3, -3)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnPositions" index="9"]
+position = Vector2(0, 2)

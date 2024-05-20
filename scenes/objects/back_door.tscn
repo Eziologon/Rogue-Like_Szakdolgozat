@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://lph0jd7j7dgp"]
+
+[ext_resource type="Script" path="res://scenes/objects/back_door.gd" id="1_cx5iu"]
+[ext_resource type="Texture2D" uid="uid://dm8ta581lqpuy" path="res://graphics/DungeonTileset/character and tileset/changeddoors3.png" id="2_l6jv6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c253b"]
+atlas = ExtResource("2_l6jv6")
+region = Rect2(96, 64, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ps0fd"]
+atlas = ExtResource("2_l6jv6")
+region = Rect2(96, 80, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7f0t0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c253b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ps0fd")
+}],
+"loop": false,
+"name": &"Open",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qefkv"]
+size = Vector2(50, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xn7d"]
+size = Vector2(34, 14)
+
+[node name="BackDoor" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_cx5iu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7f0t0")
+animation = &"Open"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-16, -8, -10, -8, -10, 8, -16, 8)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(10, -8, 16, -8, 16, 8, 10, 8)
+
+[node name="PlayerNear" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNear"]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_qefkv")
+
+[node name="SceneTransitionArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransitionArea"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_1xn7d")
+
+[connection signal="body_entered" from="PlayerNear" to="." method="_on_player_near_body_entered"]
+[connection signal="body_exited" from="PlayerNear" to="." method="_on_player_near_body_exited"]
+[connection signal="body_entered" from="SceneTransitionArea" to="." method="_on_scene_transition_area_body_entered"]

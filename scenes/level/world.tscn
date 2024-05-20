@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d10cnpm05osqw"]
+
+[ext_resource type="Script" path="res://scenes/level/world.gd" id="1_rkuhn"]
+[ext_resource type="Script" path="res://scenes/level/Rooms.gd" id="1_w7xx5"]
+[ext_resource type="PackedScene" uid="uid://bwi4gsfdlqhqa" path="res://scenes/Player/player.tscn" id="3_vivnx"]
+
+[node name="World" type="Node"]
+script = ExtResource("1_rkuhn")
+
+[node name="Rooms" type="Node2D" parent="."]
+script = ExtResource("1_w7xx5")
+
+[node name="Player" parent="." instance=ExtResource("3_vivnx")]
+metadata/_edit_lock_ = true
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="Items" type="Node2D" parent="."]
+
+[connection signal="player_primary_action" from="Player" to="." method="_on_player_player_primary_action"]
+[connection signal="player_secondary_action" from="Player" to="." method="_on_player_player_secondary_action"]

@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://bj0068kkce64r"]
+
+[ext_resource type="Script" path="res://scenes/objects/Node2D.gd" id="1_bs06a"]
+[ext_resource type="Texture2D" uid="uid://bw7wqqtcwdp0b" path="res://graphics/DungeonTileset/character and tileset/Dungeon_Tileset.png" id="2_og6ku"]
+[ext_resource type="Texture2D" uid="uid://dhm50mukol8n0" path="res://graphics/DungeonTileset/character and tileset/changeddoors.png" id="3_t64ts"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7ot5"]
+atlas = ExtResource("2_og6ku")
+region = Rect2(96, 48, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lq7am"]
+atlas = ExtResource("3_t64ts")
+region = Rect2(96, 64, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p2mne"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7ot5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lq7am")
+}],
+"loop": false,
+"name": &"Open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bprt2"]
+size = Vector2(60, 48.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_63abo"]
+size = Vector2(48, 20)
+
+[node name="FrontDoor" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_bs06a")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_p2mne")
+animation = &"Open"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(10, 8, 16, 8, 16, -8, 10, -8)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-16, 8, -10, 8, -10, -8, -16, -8, -16, 8)
+
+[node name="PlayerNear" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNear"]
+position = Vector2(0, 12.75)
+shape = SubResource("RectangleShape2D_bprt2")
+
+[node name="SceneTransitionArea" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SceneTransitionArea"]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_63abo")
+debug_color = Color(0.921569, 0, 0.698039, 0.419608)
+
+[connection signal="body_entered" from="PlayerNear" to="." method="_on_player_near_body_entered"]
+[connection signal="body_exited" from="PlayerNear" to="." method="_on_player_near_body_exited"]
+[connection signal="body_entered" from="SceneTransitionArea" to="." method="_on_scene_transition_area_body_entered"]

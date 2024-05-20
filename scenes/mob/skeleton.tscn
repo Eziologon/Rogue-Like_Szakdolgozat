@@ -1,0 +1,124 @@
+[gd_scene load_steps=17 format=3 uid="uid://b12kllpv3qtjd"]
+
+[ext_resource type="Script" path="res://scenes/mob/Skeleton.gd" id="1_aqgjf"]
+[ext_resource type="Texture2D" uid="uid://qbjyya0y4u2h" path="res://graphics/DungeonTileset1/frames/skelet_idle_anim_f0.png" id="2_i7soe"]
+[ext_resource type="Shader" path="res://scenes/mob/big_demon.gdshader" id="2_qte0o"]
+[ext_resource type="Texture2D" uid="uid://bsdnwpb26p6dh" path="res://graphics/DungeonTileset1/frames/skelet_idle_anim_f1.png" id="3_v8838"]
+[ext_resource type="Texture2D" uid="uid://54yw3xwyy32a" path="res://graphics/DungeonTileset1/frames/skelet_idle_anim_f2.png" id="4_chr82"]
+[ext_resource type="Texture2D" uid="uid://dp4jhodduepmg" path="res://graphics/DungeonTileset1/frames/skelet_idle_anim_f3.png" id="5_2amlr"]
+[ext_resource type="Texture2D" uid="uid://cvp13wp8m7rvm" path="res://graphics/DungeonTileset1/frames/skelet_run_anim_f0.png" id="6_heo44"]
+[ext_resource type="Texture2D" uid="uid://drsuspl0jq66o" path="res://graphics/DungeonTileset1/frames/skelet_run_anim_f1.png" id="7_61epe"]
+[ext_resource type="Texture2D" uid="uid://c1ue4cdy0hjyu" path="res://graphics/DungeonTileset1/frames/skelet_run_anim_f2.png" id="8_uqdf2"]
+[ext_resource type="Texture2D" uid="uid://etg7ahcbj8wj" path="res://graphics/DungeonTileset1/frames/skelet_run_anim_f3.png" id="9_yqxcm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pomjf"]
+resource_local_to_scene = true
+shader = ExtResource("2_qte0o")
+shader_parameter/color = Color(0.733333, 0.054902, 0.156863, 1)
+shader_parameter/progress = 0.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n1688"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i7soe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_v8838")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_chr82")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2amlr")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_heo44")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_61epe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_uqdf2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_yqxcm")
+}],
+"loop": true,
+"name": &"Run",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l7m4m"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fbdwu"]
+radius = 126.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iq05o"]
+radius = 126.004
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2g466"]
+polygon = PackedVector2Array(-3, 7, -3, 5, -1, 4, -1, 1, -4, 1, -4, -6, 4, -6, 4, 1, 1, 1, 1, 4, 3, 5, 3, 7, 2, 7, 1, 5, -1, 5, -2, 7)
+
+[node name="Skeleton" type="CharacterBody2D" groups=["Entity", "Mobs"]]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_aqgjf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_pomjf")
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_n1688")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.122552
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_l7m4m")
+
+[node name="AttackArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_fbdwu")
+
+[node name="NoticeArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoticeArea"]
+shape = SubResource("CircleShape2D_iq05o")
+
+[node name="ProjectileSpawnPositions" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="ProjectileSpawnPositions"]
+position = Vector2(16, -1)
+
+[node name="Marker2D2" type="Marker2D" parent="ProjectileSpawnPositions"]
+position = Vector2(16, 1)
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="ProjectileTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="HitTimer" type="Timer" parent="Timers"]
+wait_time = 0.2
+one_shot = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_2g466")
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="body_entered" from="NoticeArea" to="." method="_on_notice_area_body_entered"]
+[connection signal="body_exited" from="NoticeArea" to="." method="_on_notice_area_body_exited"]
+[connection signal="timeout" from="Timers/ProjectileTimer" to="." method="_on_projectile_timer_timeout"]
+[connection signal="timeout" from="Timers/HitTimer" to="." method="_on_hit_timer_timeout"]

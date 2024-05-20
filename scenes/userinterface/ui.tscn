@@ -1,0 +1,65 @@
+[gd_scene load_steps=8 format=3 uid="uid://bc6ea2hh0k73v"]
+
+[ext_resource type="Script" path="res://scenes/userinterface/ui.gd" id="1_2pidl"]
+[ext_resource type="FontFile" uid="uid://bxdpuk7bx0dnu" path="res://graphics/UI/PublicPixel-E447g.ttf" id="1_qbp1j"]
+[ext_resource type="Texture2D" uid="uid://d73ah0ffly7h" path="res://graphics/DungeonTileset1/frames/bomb_f0.png" id="2_fjtfc"]
+[ext_resource type="Texture2D" uid="uid://dj4igvyyjblus" path="res://graphics/UI/Cryo/GUI/GUI_4x.png" id="3_sma7b"]
+
+[sub_resource type="Theme" id="Theme_gball"]
+default_font = ExtResource("1_qbp1j")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_02fv3"]
+atlas = ExtResource("3_sma7b")
+region = Rect2(192, 400, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35by2"]
+atlas = ExtResource("3_sma7b")
+region = Rect2(128, 416, 64, 16)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_2pidl")
+
+[node name="AmmoCounter" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.01
+anchor_top = 0.95
+anchor_right = 0.01
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AmmoCounter"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="AmmoCounter/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_gball")
+text = "2"
+horizontal_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="AmmoCounter/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_fjtfc")
+expand_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -40.0
+offset_right = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer"]
+layout_mode = 2
+value = 20.0
+texture_under = SubResource("AtlasTexture_02fv3")
+texture_progress = SubResource("AtlasTexture_35by2")

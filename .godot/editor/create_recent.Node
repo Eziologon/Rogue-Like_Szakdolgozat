@@ -1,0 +1,14 @@
+Area2D
+Node
+Timer
+AnimationPlayer
+AnimationTree
+Label
+CollisionShape2D
+TileMap
+NavigationRegion2D
+Node2D
+LightOccluder2D
+NavigationAgent2D
+AnimatedSprite2D
+CharacterBody2D
